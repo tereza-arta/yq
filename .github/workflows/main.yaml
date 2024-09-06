@@ -13,3 +13,11 @@ jobs:
 
       - name: list elements
         run : ls -lah
+
+      - name: Checkout second repo
+        uses: actions/checkout@v3
+        with:
+          repository: 'https://github.com/tereza-arta/manifest-for-yq.git'
+
+      - name: list elements in second repo
+        run : ls -lah    
