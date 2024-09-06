@@ -1,0 +1,15 @@
+name: With yq script
+
+on:
+  push
+
+jobs:
+  Change-image-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: list elements
+        run : ls
