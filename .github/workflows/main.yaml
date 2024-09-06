@@ -16,7 +16,7 @@ jobs:
 
       - name: Set up Git
         run: |
-          git config --global user.name 'tereza-arta'
+          git config --global user.name 'Tereza'
           git config --global user.email 'an3146073@gmail.com'
 
       - name: list elements
