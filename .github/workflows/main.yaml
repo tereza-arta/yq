@@ -30,4 +30,4 @@ jobs:
       - name: Update YAML file with yq
         working-directory: manifest-for-yq
         run: |
-          yq e '.spec.template.spec.containers.[0].image = $NEW_TAG dir/deploy.yaml'
+          yq e '.spec.template.spec.containers.[0].image = $NEW_TAG' dir/deploy.yaml
