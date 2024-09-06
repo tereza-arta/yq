@@ -31,3 +31,12 @@ jobs:
         working-directory: manifest-for-yq
         run: |
           yq e '.spec.template.spec.containers.[0].image = $NEW_TAG' -i dir/deploy.yaml
+
+      - name: Commit and Push Changes
+        working-directory: manifest-for-yq
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          git add dir/deploy.yaml
+          git commit -m "Update image in k8s deployment"
+          git push origin main
