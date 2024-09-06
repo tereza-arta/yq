@@ -1,5 +1,8 @@
 name: With yq script
 
+env:
+  NEW_TAG: ${{ github.sha }}
+
 on:
   push
 
@@ -21,3 +24,8 @@ jobs:
 
       - name: list elements in second repo
         run : ls -lah    
+
+      - name: Set foobar to cool
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -i '.spec.template.spec.containers.[0].image = $NEW_TAG dir/deploy.yaml'
