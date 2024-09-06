@@ -14,10 +14,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      #- name: Set up Git
-        #run: |
-          #git config --global user.name 'Tereza'
-          #git config --global user.email 'an3146073@gmail.com'
+      - name: Set up Git
+        run: |
+          git config --global user.name 'Tereza'
+          git config --global user.email 'an3146073@gmail.com'
 
       - name: list elements
         run : ls -lah
