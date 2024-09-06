@@ -25,6 +25,7 @@ jobs:
       - name: Clone target repo
         run : |
           git clone https://github.com/tereza-arta/manifest-for-yq.git
+          git remote set-url origin git@github.com:tereza-arta/manifest-for-yq.git
           cd manifest-for-yq
           
       - name: Install yq
