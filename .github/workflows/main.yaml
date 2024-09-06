@@ -21,11 +21,13 @@ jobs:
         run : |
           git clone https://github.com/tereza-arta/manifest-for-yq.git
           cd manifest-for-yq
+          
+      - name: Install yq
+        run: |
+          sudo wget https://github.com/mikefarah/yq/releases/download/v4.31.2/yq_linux_amd64 -O /usr/local/bin/yq
+          sudo chmod +x /usr/local/bin/yq   
 
-      - name: list elements in second repo
-        run : ls -lah    
-
-      - name: Set foobar to cool
-        uses: mikefarah/yq@master
-        with:
-          cmd: yq '.spec.template.spec.containers.[0].image = $NEW_TAG dir/deploy.yaml'
+      - name: Update YAML file with yq
+        working-directory: manifest-for-yq
+        run: |
+          yq e '.spec.template.spec.containers.[0].image = $NEW_TAG dir/deploy.yaml'
