@@ -17,10 +17,10 @@ jobs:
       - name: list elements
         run : ls -lah
 
-      - name: Checkout second repo
-        uses: actions/checkout@v3
-        with:
-          repository: 'tereza-arta/manifest-for-yq'
+      - name: Clone target repo
+        run : |
+          git clone https://github.com/tereza-arta/manifest-for-yq.git
+          cd manifest-for-yq
 
       - name: list elements in second repo
         run : ls -lah    
