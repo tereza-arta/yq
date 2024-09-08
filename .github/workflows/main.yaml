@@ -15,3 +15,6 @@ jobs:
     with:
       path: dir
       filename: deploy.yaml
+    secrets:
+      ssh_priv_key: ${{secrets.PRIV_KEY}}
+      dockerhub_token: ${{secrets.TOKEN}}
