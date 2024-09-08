@@ -10,4 +10,4 @@ jobs:
 
     steps:
       - name: some step
-        run : "Hello from first workflow"
+        run : echo "Hello from first workflow"
