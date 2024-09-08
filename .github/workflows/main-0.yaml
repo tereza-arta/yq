@@ -1,0 +1,13 @@
+name: Workflow first
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  some_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: some step
+        run : "Hello from first workflow"
