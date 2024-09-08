@@ -1,7 +1,7 @@
 name: With yq script
 
-env:
-  NEW_TAG: ${{ github.sha }}
+#env:
+  #NEW_TAG: ${{ github.sha }}
 
 on:
   workflow_run:
@@ -17,6 +17,12 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+
+      - name: Set short git commit SHA
+        id: vars
+        run: |
+          calculatedSha=$(git rev-parse --short ${{ github.sha }})
+          echo "SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
 
       - name: Set up Git
         run: |
@@ -45,7 +51,7 @@ jobs:
       - name: Update YAML file with yq
         working-directory: manifest-for-yq
         run: |
-          yq '.spec.template.spec.containers.[0].image = "terezabisharyan/kubia:${{ env.NEW_TAG }}"' -i dir/deploy.yaml
+          yq '.spec.template.spec.containers.[0].image = "terezabisharyan/kubia:${{ env.SHORT_SHA }}"' -i dir/deploy.yaml
 
       - name: Commit and Push Changes
         working-directory: manifest-for-yq
