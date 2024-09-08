@@ -4,10 +4,14 @@ env:
   NEW_TAG: ${{ github.sha }}
 
 on:
-  push
+  workflow_run:
+    workflows: ["Workflow first"]
+    types:
+      completed
 
 jobs:
   Change-image-tag:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
