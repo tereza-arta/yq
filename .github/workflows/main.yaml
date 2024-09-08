@@ -10,54 +10,8 @@ on:
       completed
 
 jobs:
-  Change-image-tag:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Set short git commit SHA
-        id: vars
-        run: |
-          calculatedSha=$(git rev-parse --short ${{ github.sha }})
-          echo "SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
-
-      - name: Set up Git
-        run: |
-          git config --global user.name 'Tereza'
-          git config --global user.email 'an3146073@gmail.com'
-
-      - name: list elements
-        run : ls -lah
-
-      - name: Setup SSH
-        uses: MrSquaare/ssh-setup-action@v1
-        with:
-          host: github.com
-          private-key: ${{ secrets.PRIV_KEY }}
-          
-      - name: Clone repository
-        run: git clone git@github.com:tereza-arta/manifest-for-yq.git
-
-
-
-      - name: Install yq
-        run: |
-          sudo wget https://github.com/mikefarah/yq/releases/download/v4.31.2/yq_linux_amd64 -O /usr/local/bin/yq
-          sudo chmod +x /usr/local/bin/yq   
-
-      - name: Update YAML file with yq
-        working-directory: manifest-for-yq
-        run: |
-          yq '.spec.template.spec.containers.[0].image = "terezabisharyan/kubia:${{ env.SHORT_SHA }}"' -i dir/deploy.yaml
-
-      - name: Commit and Push Changes
-        working-directory: manifest-for-yq
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        run: |
-          git add dir/deploy.yaml
-          git commit -m "Update image in k8s deployment"
-          git push origin main
+  docker:
+    uses: tereza-arta/reusable/.github/workflows/workflow.yaml@main
+    with:
+      path: dir
+      filename: deploy.yaml
